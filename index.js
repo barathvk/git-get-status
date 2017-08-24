@@ -58,7 +58,7 @@ var parse_show_ref = function(str){
 module.exports = function(dir, callback){
     var exec = require('child_process').exec;
     var cmd = 'git status --porcelain -b';
-    if (dir) cmd = `git status -C ${dir} status --porcelain -b`
+    if (dir) cmd = `git -C ${dir} status --porcelain -b`
     exec(cmd, function(err, stdout){
         if (err) return callback(err);
         callback(null, parse_status(stdout));
