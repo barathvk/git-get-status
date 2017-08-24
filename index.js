@@ -55,9 +55,13 @@ var parse_show_ref = function(str){
     return refs;
 };
 
-module.exports = function(callback){
+module.exports = function(callback, dir){
     var exec = require('child_process').exec;
     var cmd = 'git status --porcelain -b';
+    if (dir) {
+        cmd += ' -C '
+        cmd += dir
+    }
     exec(cmd, function(err, stdout){
         if (err) return callback(err);
         callback(null, parse_status(stdout));
